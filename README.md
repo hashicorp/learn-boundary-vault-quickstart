@@ -34,51 +34,52 @@ vault policy write boundary-controller boundary-controller-policy.hcl
 
 1. Enable the database secrets engine:
 
-```shell
-vault secrets enable database
-```
+    ```shell
+    vault secrets enable database
+    ```
 
-2. Configure Vault with the proper plugin and connection information:
+1. Configure Vault with the proper plugin and connection information:
 
-```shell
-vault write database/config/northwind \
-     plugin_name=postgresql-database-plugin \
-     connection_url="postgresql://{{username}}:{{password}}@localhost:16001/postgres?sslmode=disable" \
-     allowed_roles=dba,analyst \
-     username="vault" \
-     password="vault-password"
-```
+    ```shell
+    vault write database/config/northwind \
+         plugin_name=postgresql-database-plugin \
+         connection_url="postgresql://{{username}}:{{password}}@localhost:16001/postgres?sslmode=disable" \
+         allowed_roles=dba,analyst \
+         username="vault" \
+         password="vault-password"
+    ```
 
-3. Create the DBA role that creates credentials with `dba.sql.hcl`:
+1. Create the DBA role that creates credentials with `dba.sql.hcl`:
 
-```shell
-vault write database/roles/dba \
-      db_name=northwind \
-      creation_statements=@dba.sql.hcl \
-      default_ttl=3m \
-      max_ttl=60m
-```
+    ```shell
+    vault write database/roles/dba \
+          db_name=northwind \
+          creation_statements=@dba.sql.hcl \
+          default_ttl=3m \
+          max_ttl=60m
+    ```
 
 Request DBA credentials from Vault to confirm:
 
-```shell
-vault read database/creds/dba
-```
+    ```shell
+    vault read database/creds/dba
+    ```
 
-4. Create the analyst role that creates credentials with `analyst.sql.hcl`:
+1. Create the analyst role that creates credentials with `analyst.sql.hcl`:
 
-```shell
-vault write database/roles/analyst \
-      db_name=northwind \
-      creation_statements=@analyst.sql.hcl \
-      default_ttl=3m \
-      max_ttl=60m
-```
+    ```shell
+    vault write database/roles/analyst \
+          db_name=northwind \
+          creation_statements=@analyst.sql.hcl \
+          default_ttl=3m \
+          max_ttl=60m
+    ```
 
 Request analyst credentials from Vault to confirm:
-```shell
-vault read database/creds/analyst
-```
+
+    ```shell
+    vault read database/creds/analyst
+    ```
 
 ### Create northwind-database policy
 
