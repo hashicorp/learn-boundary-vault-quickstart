@@ -214,7 +214,9 @@ boundary credential-stores create vault -scope-id "p_1234567890" \
       -id=ttcp_4J24foaobT \
       -credential-library=clvlt_vaaDNUTZmi
     ```
-## Use Boundary to connect to the Northwind demo database
+## Use Boundary to connect to the Northwind demo database (TODO)
+
+This does not work yet.
 
 1. Analyst target
 
