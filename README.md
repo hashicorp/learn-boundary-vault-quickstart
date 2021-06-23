@@ -59,7 +59,7 @@ vault policy write boundary-controller boundary-controller-policy.hcl
           max_ttl=60m
     ```
 
-Request DBA credentials from Vault to confirm:
+    Request DBA credentials from Vault to confirm:
 
     ```shell
     vault read database/creds/dba
@@ -75,7 +75,7 @@ Request DBA credentials from Vault to confirm:
           max_ttl=60m
     ```
 
-Request analyst credentials from Vault to confirm:
+    Request analyst credentials from Vault to confirm:
 
     ```shell
     vault read database/creds/analyst
@@ -128,34 +128,34 @@ boundary targets update tcp -id=ttcp_1234567890 -default-port=16001
 
 1. Create target for analyst
 
-```shell
-boundary targets create tcp \
-  -scope-id "p_1234567890" \
-  -default-port=16001 \
-  -session-connection-limit=-1 \
-  -name "Northwind Analyst Database"
-```
+    ```shell
+    boundary targets create tcp \
+      -scope-id "p_1234567890" \
+      -default-port=16001 \
+      -session-connection-limit=-1 \
+      -name "Northwind Analyst Database"
+    ```
 
-ID: `ttcp_MugI59YN6b`
+    ID: `ttcp_MugI59YN6b`
 
 1. Create target for DBA
 
-```shell
-boundary targets create tcp \
-  -scope-id "p_1234567890" \
-  -default-port=16001 \
-  -session-connection-limit=-1 \
-  -name "Northwind DBA Database"
-```
+    ```shell
+    boundary targets create tcp \
+      -scope-id "p_1234567890" \
+      -default-port=16001 \
+      -session-connection-limit=-1 \
+      -name "Northwind DBA Database"
+    ```
 
-ID: `ttcp_4J24foaobT`
+    ID: `ttcp_4J24foaobT`
 
 1. Add host set to both
 
-```shell
-boundary targets add-host-sets -host-set=hsst_1234567890 -id=ttcp_MugI59YN6b
-boundary targets add-host-sets -host-set=hsst_1234567890 -id=ttcp_4J24foaobT
-```
+    ```shell
+    boundary targets add-host-sets -host-set=hsst_1234567890 -id=ttcp_MugI59YN6b
+    boundary targets add-host-sets -host-set=hsst_1234567890 -id=ttcp_4J24foaobT
+    ```
 
 ### Connect to Database
 
@@ -177,49 +177,47 @@ boundary credential-stores create vault -scope-id "p_1234567890" \
 
 1. Create library for analyst credentials
 
-```shell
-boundary credential-libraries create vault \
-  -credential-store-id ${CS_ID} \
-  -vault-path "database/creds/analyst" \
-  -name "northwind analyst"
-```
+    ```shell
+    boundary credential-libraries create vault \
+      -credential-store-id ${CS_ID} \
+      -vault-path "database/creds/analyst" \
+      -name "northwind analyst"
+    ```
 
-Analyst Library ID: `clvlt_3zCNiY66lG`
+    Analyst Library ID: `clvlt_3zCNiY66lG`
 
-2. Create library for DBA credentials
+1. Create library for DBA credentials
 
-```shell
-boundary credential-libraries create vault \
-  -credential-store-id ${CS_ID} \
-  -vault-path "database/creds/dba" \
-  -name "northwind dba"
-```
+    ```shell
+    boundary credential-libraries create vault \
+      -credential-store-id ${CS_ID} \
+      -vault-path "database/creds/dba" \
+      -name "northwind dba"
+    ```
 
-DBA Library ID: `clvlt_vaaDNUTZmi`
+    DBA Library ID: `clvlt_vaaDNUTZmi`
 
 ### Add Credential Libraries to Targets
 
 1. Analyst target
 
-```shell
-boundary targets add-credential-libraries \
-  -id=ttcp_MugI59YN6b \
-  -credential-library=clvlt_3zCNiY66lG
-```
+    ```shell
+    boundary targets add-credential-libraries \
+      -id=ttcp_MugI59YN6b \
+      -credential-library=clvlt_3zCNiY66lG
+    ```
 
-2. DBA target
+1. DBA target
 
-```shell
-boundary targets add-credential-libraries \
-  -id=ttcp_4J24foaobT \
-  -credential-library=clvlt_vaaDNUTZmi
-```
-
-
+    ```shell
+    boundary targets add-credential-libraries \
+      -id=ttcp_4J24foaobT \
+      -credential-library=clvlt_vaaDNUTZmi
+    ```
 ## Use Boundary to connect to the Northwind demo database
 
 1. Analyst target
 
-```shell
-boundary connect postgres -target-id ttcp_MugI59YN6b
-```
+    ```shell
+    boundary connect postgres -target-id ttcp_MugI59YN6b
+    ```
