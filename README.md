@@ -1,6 +1,6 @@
 # Boundary and Vault Integration Quickstart
 
-This directory contains an example deployment of Boundary using docker-compose and Terraform. The lab environment is meant to accompany the Hashicorp Learn [Boundary Vault integration quickstart tutorial](https://learn.hashicorp.com/tutorials/boundary/vault-quickstart).
+This directory contains an example deployment of Boundary using docker-compose and Terraform. The lab environment is meant to accompany the Hashicorp Learn [Boundary Vault integration quickstart tutorial](https://learn.hashicorp.com/tutorials/boundary/vault-cred-brokering-quickstart).
 
 In this example, a demo postgres database target is deployed. A dev Vault server is then configured using the database secrets engine and policies allowing Boundary to request credentials for two roles, a DBA and an "analyst". Boundary is then run in dev mode, and the DBA and analyst targets are configured using a credential store that contains credential libraries for both targets. This enables credential brokering via Vault, which is demonstrated using the `boundary connect postgres` command.
 
