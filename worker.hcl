@@ -11,7 +11,7 @@ listener "tcp" {
 }
 
 worker {
-  auth_storage_path = "/boundary/pki-worker1"
+  auth_storage_path = "/boundary/worker1"
   tags {
     type = ["worker", "vault"]
   }
